@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 // ROUTE-HANDLING MIDDLEWARE FUNCTIONS
 // ************************************
 
-// Handle routes for tasks.
+// Handle routes for employee.
 app.use('/employee', employeeRoutes); // http://localhost:3001/employee
 // app.use('/users', usersRoutes); // http://localhost:3001/users
 

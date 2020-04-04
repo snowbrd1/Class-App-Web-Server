@@ -1,8 +1,8 @@
 exports.CREATE_EMPLOYEE_TABLE = `CREATE TABLE IF NOT EXISTS test(
     id int NOT NULL AUTO_INCREMENT,
-    Last Name varchar(255) NOT NULL,
-    created_date DATETIME NULL,
-    Position VARCHAR(10) NULL DEFAULT "pending",
+    name varchar(50) NOT NULL,
+    hired DATETIME NULL,
+    Position VARCHAR(20) NULL DEFAULT "pending",
     PRIMARY KEY (id)
     )`;
   
@@ -10,8 +10,8 @@ exports.CREATE_EMPLOYEE_TABLE = `CREATE TABLE IF NOT EXISTS test(
   
   exports.SINGLE_EMPLOYEE = `SELECT * FROM employee WHERE id = ?`;
   
-  exports.INSERT_EMPLOYEE = `INSERT INTO employee (last name) VALUES (?)`;
+  exports.INSERT_EMPLOYEE = `INSERT INTO employee (name) VALUES (?)`;
   
-  exports.UPDATE_EMPLOYEE = `UPDATE employee SET name = ?, status = ? WHERE id = ?`;
+  exports.UPDATE_EMPLOYEE = `UPDATE employee SET name = ?, position = ? WHERE id = ?`;
   
   exports.DELETE_EMPLOYEE = `DELETE FROM employee WHERE id = ?`;

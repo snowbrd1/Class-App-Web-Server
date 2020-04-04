@@ -19,6 +19,6 @@ employeeRoutes.get('/', controllers.getAllEmployee).post('/', controllers.create
 employeeRoutes
   .get('/:employeeId', controllers.getEmployee) // GET http://locahost:3001/tasks/1
   .put('/:employeeId', controllers.updateEmployee)
-  .delete('/:employeeId', controllers.deleteemployee);
+  .delete('/:employeeId', controllers.deleteEmployee);
 
 module.exports = employeeRoutes;

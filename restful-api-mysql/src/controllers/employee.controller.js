@@ -36,7 +36,7 @@ exports.getEmployee = function(req, res) {
  * }
  */
 exports.createEmployee = function(req, res) {
-  con.query(queries.INSERT_EMPLOYEE, [req.body.last_name], function(err, result) {
+  con.query(queries.INSERT_EMPLOYEE, [req.body.name], function(err, result) {
     if (err) {
       res.send(err);
     }
@@ -56,7 +56,7 @@ exports.createEmployee = function(req, res) {
 exports.updateEmployee = function(req, res) {
   con.query(
     queries.UPDATE_EMPLOYEE,
-    [req.body.name, req.body.status, req.params.employeeId],
+    [req.body.name, req.body.position, req.params.employeeId],
     function(err, data) {
       if (err) {
         res.send(err);
@@ -72,6 +72,6 @@ exports.deleteEmployee = function(req, res) {
     if (err) {
       res.send(err);
     }
-    res.json({ message: 'Deleted successfully.' });
+    res.json({ message: 'Employee is terminated.' });
   });
 };
