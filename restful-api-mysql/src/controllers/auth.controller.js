@@ -25,6 +25,7 @@ exports.registerUser = function(req, res) {
         user
       ) {
         if (err) {
+          console.log(err)
           res.status(500);
           res.send({ msg: 'Could not retrieve user.' });
         }
