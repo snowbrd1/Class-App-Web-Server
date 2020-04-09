@@ -1,36 +1,43 @@
 const mysql = require('mysql');
-const authQueries = require('./queries/auth.queries');
-const employeeQueries = require('./queries/employee.queries');
+const { CREATE_USER_TABLE } = require('./queries/user.queries');
+const { CREATE_EMPLOYEE_TABLE } = require('./queries/employee.queries');
+const query = require('./utils/query');
 
 // Get the Host from Environment or use default
 const host = process.env.DB_HOST || 'localhost';
+
 // Get the User for DB from Environment or use default
 const user = process.env.DB_USER || 'root';
+
 // Get the Password for DB from Environment or use default
 const password = process.env.DB_PASS || '';
+
 // Get the Database from Environment or use default
 const database = process.env.DB_DATABASE || 'test';
+
 // Create the connection with required details
-const con = mysql.createConnection({
-  host,
-  user,
-  password,
-  database
-});
-// Connect to the database.
-con.connect(function(err) {
-  if (err) throw err;
-  console.log('Connected!');
+module.exports = async () =>
+  new Promise(async (resolve, reject) => {
+    const con = mysql.createConnection({
+      host,
+      user,
+      password,
+      database,
+    });
 
-  con.query(authQueries.CREATE_USERS_TABLE, function(err, result) {
-    if (err) throw err;
-    console.log('Users table created or exists already!');
+    const userTableCreated = await query(con, CREATE_USER_TABLE).catch(
+      (err) => {
+        reject(err);
+      }
+    );
+
+    const employeeTableCreated = await query(con, CREATE_EMPLOYEE_TABLE).catch(
+      (err) => {
+        reject(err);
+      }
+    );
+
+    if (!!userTableCreated && !!employeeTableCreated) {
+      resolve(con);
+    }
   });
-
-  con.query(employeeQueries.CREATE_EMPLOYEE_TABLE, function(err, result) {
-    if (err) throw err;
-    console.log('Employee table created or exists already!');
-  });
-});
-
-module.exports = con;

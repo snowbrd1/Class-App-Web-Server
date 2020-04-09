@@ -1,5 +1,12 @@
-const controllers = require('../controllers/employee.controller');
 const express = require('express');
+const {
+  getAllEmployee,
+  createEmployee,
+  getEmployee,
+  updateEmployee,
+  deleteEmployee,
+} = require('../controllers/employee.controller');
+const canAccess = require('../middleware/auth.middleware');
 
 const employeeRoutes = express.Router();
 /**
@@ -11,14 +18,14 @@ const employeeRoutes = express.Router();
 /**
  * Routes for all employee. Evaluates to `/employee/`.
  */
-employeeRoutes.get('/', controllers.getAllEmployee).post('/', controllers.createEmployee);
+employeeRoutes.get('/', canAccess, getAllEmployee).post('/', canAccess, createEmployee);
 
 /**
  * Routes for a employee by id. Evalutes to `/employee/:employeeId`.
  */
 employeeRoutes
-  .get('/:employeeId', controllers.getEmployee) // GET http://locahost:3001/tasks/1
-  .put('/:employeeId', controllers.updateEmployee)
-  .delete('/:employeeId', controllers.deleteEmployee);
+  .get('/:employeeId', canAccess, getEmployee) // GET http://locahost:3001/employee/1
+  .put('/:employeeId', canAccess, updateEmployee)
+  .delete('/:employeeId', canAccess, deleteEmployee);
 
 module.exports = employeeRoutes;
