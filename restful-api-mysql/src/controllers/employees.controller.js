@@ -1,11 +1,11 @@
 const connection = require('../db-config');
 const {
-  ALL_EMPLOYEE,
+  ALL_EMPLOYEES,
   SINGLE_EMPLOYEE,
   INSERT_EMPLOYEE,
   UPDATE_EMPLOYEE,
   DELETE_EMPLOYEE,
-} = require('../queries/employee.queries');
+} = require('../queries/employees.queries');
 const query = require('../utils/query');
 
 /**
@@ -16,24 +16,24 @@ const query = require('../utils/query');
  * DELETE - Delete
  */
 
-// http://localhost:3001/employee
-exports.getAllEmployee = async (req, res) => {
+// http://localhost:3001/employees
+exports.getAllEmployees = async (req, res) => {
   // establish connection
   const con = await connection().catch((err) => {
     throw err;
   });
 
-  // query all employee
-  const employee = await query(con, ALL_EMPLOYEE).catch((err) => {
+  // query all employees
+  const employees = await query(con, ALL_EMPLOYEES).catch((err) => {
     res.send(err);
   });
 
-  if (employee.length) {
-    res.json(employee);
+  if (employees.length) {
+    res.json(employees);
   }
 };
 
-// http://localhost:3001/employee/1
+// http://localhost:3001/employees/1
 exports.getEmployee = async (req, res) => {
   // establish connection
   const con = await connection().catch((err) => {
@@ -52,11 +52,11 @@ exports.getEmployee = async (req, res) => {
   }
 };
 
-// http://localhost:3001/employee
+// http://localhost:3001/employees
 /**
  * POST request -
  * {
- *  name: 'A employee name'
+ *  name: 'An employee name'
  * }
  */
 exports.createEmployee = async (req, res) => {
@@ -84,11 +84,11 @@ exports.createEmployee = async (req, res) => {
   }
 };
 
-// http://localhost:3001/employee/1
+// http://localhost:3001/employees/1
 /**
  * PUT request -
  * {
- *  name: 'A employee name',
+ *  name: 'An employee name',
  *  state: 'completed'
  * }
  */
@@ -101,7 +101,7 @@ exports.updateEmployee = async (req, res) => {
   // query update employee
   const result = await query(con, UPDATE_EMPLOYEE, [
     req.body.name,
-    req.body.status,
+    req.body.position,
     req.params.employeeId,
   ]).catch((err) => {
     res.send(err);
@@ -112,7 +112,7 @@ exports.updateEmployee = async (req, res) => {
   }
 };
 
-// http://localhost:3001/employee/1
+// http://localhost:3001/employees/1
 exports.deleteEmployee = async (req, res) => {
   // establish connection
   const con = await connection().catch((err) => {

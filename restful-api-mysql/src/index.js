@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 
 const authRoutes = require('./routes/auth.routes');
 const userRoutes = require('./routes/user.routes');
-const employeeRoutes = require('./routes/employee.routes');
+const employeesRoutes = require('./routes/employees.routes');
 const { error404, error500 } = require('./middleware/errors.middleware');
 
 const app = express();
@@ -32,7 +32,7 @@ app.use(cors());
 // Partial API endpoints
 app.use('/api/auth', authRoutes); // http://localhost:3001/api/auth
 app.use('/api/user', userRoutes); // http://localhost:3001/api/user
-app.use('/api/employee', employeeRoutes); // http://localhost:3001/api/employee
+app.use('/api/employees', employeesRoutes); // http://localhost:3001/api/employees
 
 // Handle 404 requests
 app.use(error404);

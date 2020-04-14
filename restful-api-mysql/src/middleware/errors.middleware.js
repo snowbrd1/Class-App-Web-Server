@@ -1,4 +1,3 @@
-  
 // ************************************
 // ERROR-HANDLING MIDDLEWARE FUNCTIONS
 // ************************************
@@ -11,7 +10,7 @@ exports.error404 = (req, res, next) => {
 };
 
 /**
- * Handle req that would produce a 500 status code and respons accordingly.
+ * Handle req that would produce a 500 status code and respond accordingly.
  */
 exports.error500 = (error, req, res, next) => {
   res.status(error.status || 500);

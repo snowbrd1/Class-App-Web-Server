@@ -4,7 +4,16 @@
             "askForPassword": false,
             "database": "test",
             "dialect": "MySQL",
-            "name": "users",
+            "name": "employee",
+            "port": 3306,
+            "server": "localhost",
+            "username": "root"
+        },
+        {
+            "askForPassword": false,
+            "database": "test",
+            "dialect": "MySQL",
+            "name": "user",
             "port": 3306,
             "server": "localhost",
             "username": "root"

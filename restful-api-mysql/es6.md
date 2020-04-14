@@ -1,35 +1,20 @@
-# Notes on ES6
-
+Notes on ES6
 ECMAScript = ESx. ES3...ES6, ESNext
 
-## Variables
-
-```javascript
-let a = 'Hello World!';
+Variables
+let a = 'Helo World!';
 const b = {};
-```
-
-## Functions
-
-```javascript
+Functions
 function a() {} // 'this' defined whenever function is defined
 
 const b = () => {}; // 'this' defined on own scope
-```
-
-## Array & Objects
-
-```javascript
+Array & Objects
 const arr = [1, 2, 3, 4, 5];
 const [first, ...otherNumbers] = arr;
 
 const obj = { name: 'bob' };
 const { name } = obj;
-```
-
-## Promises
-
-```javascript
+Pormises
 const p = new Promise((resolve, reject) => {
   if (err) {
     reject(false);
@@ -43,4 +28,3 @@ p.then((val) => console.log(value)).catch((err) => console.log(err));
 async function a() {
   return await p;
 }
-```

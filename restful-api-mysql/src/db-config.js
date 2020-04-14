@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 const { CREATE_USER_TABLE } = require('./queries/user.queries');
-const { CREATE_EMPLOYEE_TABLE } = require('./queries/employee.queries');
+const { CREATE_EMPLOYEES_TABLE } = require('./queries/employees.queries');
 const query = require('./utils/query');
 
 // Get the Host from Environment or use default
@@ -15,9 +15,8 @@ const password = process.env.DB_PASS || '';
 // Get the Database from Environment or use default
 const database = process.env.DB_DATABASE || 'test';
 
-// Create the connection with required details
-module.exports = async () =>
-  new Promise(async (resolve, reject) => {
+const connection = async () =>
+  new Promise((resolve, reject) => {
     const con = mysql.createConnection({
       host,
       user,
@@ -25,19 +24,37 @@ module.exports = async () =>
       database,
     });
 
-    const userTableCreated = await query(con, CREATE_USER_TABLE).catch(
-      (err) => {
+    con.connect((err) => {
+      if (err) {
         reject(err);
+        return;
       }
-    );
+    });
 
-    const employeeTableCreated = await query(con, CREATE_EMPLOYEE_TABLE).catch(
-      (err) => {
-        reject(err);
-      }
-    );
-
-    if (!!userTableCreated && !!employeeTableCreated) {
-      resolve(con);
-    }
+    resolve(con);
   });
+
+// Create the connection with required details
+(async () => {
+  const _con = await connection().catch((err) => {
+    throw err;
+  });
+
+  const userTableCreated = await query(_con, CREATE_USER_TABLE).catch(
+    (err) => {
+      console.log(err);
+    }
+  );
+
+  const employeesTableCreated = await query(_con, CREATE_EMPLOYEES_TABLE).catch(
+    (err) => {
+      console.log(err);
+    }
+  );
+
+  if (!!userTableCreated && !!employeesTableCreated) {
+    console.log('Tables Created!');
+  }
+})();
+
+module.exports = connection;
