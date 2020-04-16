@@ -15,10 +15,12 @@
  */
 exports.CREATE_EMPLOYEES_TABLE = `CREATE TABLE IF NOT EXISTS employees(
   id int NOT NULL AUTO_INCREMENT,
+  user_id varchar(50) NOT NULL,
   name varchar(255) NOT NULL,
   position varchar(255) NOT NULL,
   supervisor varchar(255) NOT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  FOREIGN KEY (user_id) REFERENCES user(user_id)
 )`;
 
 // Get every employee

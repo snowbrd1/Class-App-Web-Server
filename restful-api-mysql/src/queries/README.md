@@ -25,16 +25,16 @@ The employee table will be represented by the following Schema:
 
 Column	Description
 id	Unique identifier for a user's employee.
-name	Employee name (non-unique)
-created_date	Employee's created date (non-unique)
-status	Employee's status as pending or completed
+name	Employee name 
+position Employee Position
+supervisor	Employee Supervisor
 Example:
 
 +----+--------------------------------+---------------------+-----------+
-| id | name                           | created_date        | status    |
+| id | name                           | position       | supervisor    |
 +----+--------------------------------+---------------------+-----------+
-|  1 | I'm the first employee!            | 2020-03-23 23:09:49 | completed |
-|  3 | I'm replacing the second employee! | 2020-03-23 23:15:45 | pending   |
-|  4 | I'm the third employee!            | 2020-03-23 23:20:04 | pending   |
-|  6 | Make sure to post videos later | 2020-03-24 14:16:22 | pending   |
+|  1 | John                           |sales           | Jane          |
+|  2 | Rich                           |sales           | Jane          |
+|  3 | Dave                           |sales           | Jane          |
+|  4 | Bill                           |manager|        | Bob           |
 +----+--------------------------------+---------------------+-----------+

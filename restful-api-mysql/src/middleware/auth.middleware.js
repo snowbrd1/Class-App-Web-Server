@@ -2,7 +2,7 @@ const { jwtconfig, verifyToken } = require('../utils/jwt-helpers');
 
 module.exports = (req, res, next) => {
   const authHeader = req.headers['auth-token'] || req.headers['authorization'];
-  const accessToken = authHeader.split('')[1];
+  const accessToken = authHeader.split(' ')[1];
 
   if (!accessToken) {
     // stop user auth validation
