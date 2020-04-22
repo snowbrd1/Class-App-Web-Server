@@ -14,20 +14,23 @@
  * - defaults always specifed last (helps with inserting)
  */
 exports.CREATE_EMPLOYEES_TABLE = `CREATE TABLE IF NOT EXISTS employees(
-  id int NOT NULL AUTO_INCREMENT,
-  user_id varchar(50) NOT NULL,
-  name varchar(255) NOT NULL,
+  employee_id int NOT NULL AUTO_INCREMENT,
+  user_id int NOT NULL,
+  employee_name varchar(255) NOT NULL,
   position varchar(255) NOT NULL,
   supervisor varchar(255) NOT NULL,
-  PRIMARY KEY (id),
+  PRIMARY KEY (employee_id),
   FOREIGN KEY (user_id) REFERENCES user(user_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 )`;
 
 // Get every employee
-exports.ALL_EMPLOYEES = `SELECT * FROM employees`;
+exports.ALL_EMPLOYEES = (userId) => `SELECT * FROM employees WHERE user_id = ${userId}`;
 
 // Get a single employee by id
-exports.SINGLE_EMPLOYEE = `SELECT * FROM employees WHERE id = ?`;
+exports.SINGLE_EMPLOYEE = (userId, employeeId) =>
+  `SELECT * FROM employees WHERE user_id = ${userId} AND employee_id = ${employeeId}`;
 
 /**
  * Insert follows syntax:
@@ -35,10 +38,11 @@ exports.SINGLE_EMPLOYEE = `SELECT * FROM employees WHERE id = ?`;
  *    VALUES(<value1>, <value2>, <value3>, ...)
  *
  * Create a new employee in `employees` table where
- * - column names match the order the are in the table
+ * - column names match the order that are in the table
  * - `?` allow us to use params in our controllers
  */
-exports.INSERT_EMPLOYEE = `INSERT INTO employees (name) VALUES (?)`;
+exports.INSERT_EMPLOYEE = (userId, employeeName, position, supervisor) =>
+  `INSERT INTO employees (user_id, employee_name, position, supervisor) VALUES (${userId}, ${employeeName}, ${position}, ${supervisor})`;
 
 /**
  * Update follows syntax:
@@ -46,7 +50,9 @@ exports.INSERT_EMPLOYEE = `INSERT INTO employees (name) VALUES (?)`;
  *
  * NOTE: omitting `WHERE` will result in updating every existing entry.
  */
-exports.UPDATE_EMPLOYEE = `UPDATE employees SET name = ?, position = ? WHERE id = ?`;
+exports.UPDATE_EMPLOYEE = (userId, employeeId, newValues) =>
+  `UPDATE employees SET ${newValues} WHERE user_id = ${userId} AND employee_id = ${employeeId}`;
 
 // Delete a employee by id
-exports.DELETE_EMPLOYEE = `DELETE FROM employees WHERE id = ?`;
+exports.DELETE_EMPLOYEE = (userId, employeeId) =>
+  `DELETE FROM employees WHERE user_id = ${userId} AND employee_id = ${employeeId}`;

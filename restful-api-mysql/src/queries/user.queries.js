@@ -18,4 +18,3 @@ exports.INSERT_NEW_USER = `INSERT INTO user (username, email, password) VALUES (
 
 exports.UPDATE_USER = `UPDATE user SET username = ?, email = ?, password = ? WHERE user_id = ?`;
 
-exports.UPDATE_USER = `UPDATE user SET username = ?, email = ?, password = ? WHERE user_id = ?`;
