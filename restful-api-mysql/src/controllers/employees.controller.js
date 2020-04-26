@@ -85,7 +85,7 @@ exports.createEmployee = async (req, res) => {
     if (result.affectedRows !== 1) {
       res
         .status(500)
-        .json({ msg: 'Unable to add employee: ${req.body.employee_name.position.supervisor}' });
+        .json({ msg: `Unable to add employee: ${req.body.employee_name}` });
     }
     res.json({ msg: 'Added employee successfully!' })
   }
@@ -133,7 +133,7 @@ exports.updateEmployee = async (req, res) => {
   if (result.affectedRows !== 1) {
     res
       .status(500)
-      .json({ msg: `Unable to update employee: '${req.body.employee_name, position, supervisor}'` });
+      .json({ msg: `Unable to update employee: '${req.body.employee_name}'` });
   }
   res.json(result);
 };
@@ -148,7 +148,7 @@ exports.deleteEmployee = async (req, res) => {
   // query delete employee
   const result = await query(
     con, 
-    DELETE_EMPLOYEE, (req.user.id, req.params.employeeId)
+    DELETE_EMPLOYEE (req.user.id, req.params.employeeId)
     ).catch(serverError(res));
 
   if (result.affectedRows !== 1) {
