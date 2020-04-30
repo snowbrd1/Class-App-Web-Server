@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+const escape = require('mysql').escape;
 const connection = require('../db-config');
 const {
   ALL_EMPLOYEES,
@@ -102,7 +102,7 @@ const _buildValuesString = (req) => {
   const body = req.body;
   const values = Object.keys(body).map( //the keys are the employee_name, position, supervisor
     // [employee_name, position, supervisor].map()
-    (key) => `${key} = ${mysql.escape(body[key])}` // 'New 1 employee name'
+    (key) => `${key} = ${escape(body[key])}` // 'New 1 employee name'
   );
 
   values.join(', '); // make into a string
